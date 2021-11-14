@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 
 import InputboxWidget from "components/InputboxWidget"
 import ButtonWidget from "components/ButtonWidget"
+import classnames from 'classnames'
 
 function App() {
   const [widgets, setWidgets] = useState([])
   const [widgetName, setWidgetName] = useState("")
   const [valueName, setValueName] = useState("")
+  const [errors, setErrors] = useState({ errorName: "", errorValue: "" })
 
   const createWidget = (widgetType) => {
     addWidget(
@@ -20,6 +22,17 @@ function App() {
   }
 
   const addWidget = (widget) => {
+    // Form validation for name and error fields
+    if (!widgetName) {
+      setErrors({ errorName: 'Widget name is required' })
+      return
+    }
+
+    if (!valueName) {
+      setErrors({ errorValue: 'Value name is required' })
+      return
+    }
+
     if (widgets.some(item => item.widgetName === widget.widgetName))
       return
 
@@ -38,6 +51,11 @@ function App() {
         ...widgets,
         widget,
       ])
+
+    //Reset Form
+    setWidgetName("")
+    setValueName("")
+    setErrors({})
   }
 
   const removeWidget = (widgetName) => {
@@ -60,7 +78,7 @@ function App() {
   }
 
   return (
-    <div className="container mx-auto mt-4">
+    <div className="container mx-auto mt-4 mb-5">
       <div className="row border border-dark border-bottom-0">
         <div className="col-lg-6 col-md-6 col-12">
           <div className="p-2">
@@ -102,20 +120,25 @@ function App() {
         </div>
         <div className="col-lg-3 col-md-3 col-12">
           <input type="text"
-            className="form-control"
+            className={classnames("form-control", { "is-invalid": errors.errorName })}
             value={widgetName}
             placeholder="Widget Name"
             required={true}
             onChange={(e) => setWidgetName(e.target.value)}
           />
+          <span className="invalid-feedback">{errors.errorName}</span>
         </div>
+
+
         <div className="col-lg-3 col-md-3 col-12">
-          <input type="text" name="name2" id="name2" className="form-control"
+          <input type="text" name="name2" id="name2"
+            className={classnames("form-control", { "is-invalid": errors.errorValue })}
             value={valueName}
             required={true}
             placeholder="Value Name"
             onChange={(e) => setValueName(e.target.value)}
           />
+          <span className="invalid-feedback">{errors.errorValue}</span>
         </div>
         <div className="col-lg-3 col-md-3 col-12">
           <button
