@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { BsXCircle } from "react-icons/bs";
+
 
 const InputBox = (props) => {
 
@@ -9,7 +11,7 @@ const InputBox = (props) => {
   return (
     <div className="border border-dark p-3 mb-3">
       <button type="button" className="close" aria-label="Close" onClick={() => removeWidget(widgetName)}>
-        <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true"><BsXCircle /></span>
       </button>
 
       <p className="mb-1">{`name: ${widgetName} (Inputbox)`}</p>

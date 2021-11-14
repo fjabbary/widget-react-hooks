@@ -52,7 +52,7 @@ function App() {
         widget,
       ])
 
-    //Reset Form
+    //Reset Form and errors after adding new widget
     setWidgetName("")
     setValueName("")
     setErrors({})
@@ -79,6 +79,7 @@ function App() {
 
   return (
     <div className="container mx-auto mt-4 mb-5">
+
       <div className="row border border-dark border-bottom-0">
         <div className="col-lg-6 col-md-6 col-12">
           <div className="p-2">
