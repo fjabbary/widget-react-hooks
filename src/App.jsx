@@ -33,8 +33,10 @@ function App() {
       return
     }
 
-    if (widgets.some(item => item.widgetName === widget.widgetName))
+    if (widgets.some(item => item.widgetName === widget.widgetName)) {
+      setErrors({ errorName: 'Widget name already exists' })
       return
+    }
 
     const w = widgets.find(item => item.valueName === widget.valueName)
 
